@@ -1,2 +1,2 @@
 # shell_example
-some little useful shell example
+Some little useful shell example
