@@ -1,12 +1,13 @@
 #!/bin/sh
 
-monitor_log="/usr/local/push_server/log/monitor.log"
-procnum=`ps -ef|grep "dovecot_push_server"|grep -v grep|wc -l`
+procname='nginx_auth'
+monitor_log="/usr/local/auth/log/monitor.log"
+procnum=`ps -ef|grep $procname|grep -v grep|wc -l`
 echo `date` "procnum:" $procnum >> $monitor_log
 if [[ $procnum -eq 0 ]]; then
-	cd /usr/local/push_server/bin
-	./dovecot_push_server >> $monitor_log 2>&1 &
-	procnum=`ps -ef|grep "dovecot_push_server"|grep -v grep|wc -l`
+	cd /usr/local/auth/
+	./$procname & >> $monitor_log 2>&1 &
+	procnum=`ps -ef|grep $procname|grep -v grep|wc -l`
 	if [[ $procnum -eq 0 ]]; then
 		echo "Failed!" >> $monitor_log
 	else
